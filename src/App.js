@@ -1,9 +1,10 @@
 import React from 'react'
+import FlowBuilder from './components/FlowBuilder'
 
 function App() {
   return (
     <div>
-      hello world
+      <FlowBuilder/>
     </div>
   )
 }
