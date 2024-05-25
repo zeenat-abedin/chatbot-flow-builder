@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import ReactFlow, { MiniMap, Controls, Background } from 'react-flow-renderer';
 import SettingsPanel from './SettingsPanel';
+import NodesPanel from './NodesPanel';
 
 
 function FlowBuilder() {
-const NODE_TYPES = [
-  { id: 'text', name: 'Text Node' },
-];
-
   const [elements, setElements] = useState([]);
   const [selectedNode, setSelectedNode] = useState(null);
   const [showSettings, setShowSettings] = useState(false);
@@ -55,12 +52,7 @@ const NODE_TYPES = [
 
   const handleDeselectNode = () => {
     setSelectedNode(null);
-    };
-    
-  const nodeTypes = NODE_TYPES.map((type) => ({
-   ...type,
-    position: { x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight },
-  }));
+    };    
     
   const onSaveButtonClick = () => {
     const nodesWithEmptyTargetHandles = elements.filter(
@@ -78,12 +70,18 @@ const NODE_TYPES = [
   console.log("Saving the flow...");
   };
 
+  const addNode = (data) => {
+  const newNode = JSON.parse(data);
+  setElements((els) => [...els, {...newNode, id: Date.now(), position: { x: 0, y: 0 } }]);
+};
+
   return (
     <div style={{ height: 500 }}>
+      <NodesPanel onAddNode={addNode} />
       <ReactFlow
         elements={elements}
         onConnect={onConnect}
-        nodeTypes={nodeTypes}
+        nodeTypes={[]}
         onSelectionChange={handleSelectionChange}
         onDragStop={() => handleDeselectNode()}
        >
