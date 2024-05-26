@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import ReactFlow, { MiniMap, Controls, Background, applyNodeChanges, applyEdgeChanges } from 'react-flow-renderer';
+import SettingsPanel from './SettingsPanel';
 
 const initialNodes = [
   {
@@ -23,10 +24,8 @@ function FlowBuilder() {
 
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
-
-  // const [elements, setElements] = useState([]);
-  // const [selectedNode, setSelectedNode] = useState(null);
-  // const [showSettings, setShowSettings] = useState(false);
+  const [selectedNode, setSelectedNode] = useState(null);
+  const [showSettings, setShowSettings] = useState(false);
 
   const onNodesChange = useCallback(
     (changes) => setNodes((ns) => applyNodeChanges(changes, ns)),
@@ -82,7 +81,7 @@ function FlowBuilder() {
     };    
     
   const onSaveButtonClick = () => {
-    const nodesWithEmptyTargetHandles = nodes.filter(
+  const nodesWithEmptyTargetHandles = nodes.filter(
     (element) =>
       Array.isArray(element.targetHandles) &&
       element.targetHandles.length > 0 &&
@@ -97,15 +96,41 @@ function FlowBuilder() {
   console.log("Saving the flow...");
   };
 
-  const addNode = (data) => {
-  const newNode = JSON.parse(data);
-  setNodes((els) => [...els, {...newNode, id: Date.now(), position: { x: 0, y: 0 } }]);
+  const addNode = (type,position) => {
+   const newNode = {
+    id: Date.now().toString(),
+    type, 
+    data: { label: 'Send Message', inputValue: '',  },
+    position,
+    targetHandles: [], 
+    sourceHandles: [] 
+  };
+
+  setNodes((prevNodes) => [...prevNodes, newNode]);
+  };
+  
+  const CustomTextNode = ({ data, position, id, type, sourceHandles, targetHandles }) => {
+  return (
+    <div style={{ position: 'absolute', left: position.x, top: position.y }}>
+      <div>{data.label}</div>
+      <input
+        type="text"
+        value={data.inputValue}
+        onChange={(e) => {
+          // Update the inputValue in your state management logic here
+        }}
+      />
+    </div>
+  );
 };
 
   return (  
     <div style={{ height: 500 }}>
       <button style={{ display: 'flex', justifyContent: 'flex-end' }} onClick={onSaveButtonClick}>Save Changes</button>
       <ReactFlow
+        nodeTypes={{
+        text: CustomTextNode,
+        }}
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
@@ -118,11 +143,11 @@ function FlowBuilder() {
         <MiniMap />
         <Controls />
       </ReactFlow>
-    {/* {showSettings && (
+    {showSettings && (
       <SettingsPanel
         selectedNode={selectedNode}
         onUpdate={(newLabel) => {
-          setElements((els) =>
+          setNodes((els) =>
             els.map((el) =>
               el.id === selectedNode? {...el, label: newLabel } : el
             )
@@ -130,7 +155,8 @@ function FlowBuilder() {
           setShowSettings(false); 
         }}
       />
-    )}  */}
+      )} 
+    <button onClick={() => addNode('text', { x: 100, y: 100 })}>Add New Node</button>  
     </div>
   );
 };
