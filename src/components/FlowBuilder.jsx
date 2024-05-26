@@ -1,15 +1,42 @@
-import React, { useState } from 'react';
-import ReactFlow, { MiniMap, Controls, Background } from 'react-flow-renderer';
-import SettingsPanel from './SettingsPanel';
-import NodesPanel from './NodesPanel';
+import React, { useCallback, useState } from 'react';
+import ReactFlow, { MiniMap, Controls, Background, applyNodeChanges, applyEdgeChanges } from 'react-flow-renderer';
 
+const initialNodes = [
+  {
+    id: '1',
+    data: { label: 'Hello' },
+    position: { x: 0, y: 0 },
+    type: 'input',
+  },
+  {
+    id: '2',
+    data: { label: 'World' },
+    position: { x: 100, y: 100 },
+  },
+];
+
+const initialEdges = [
+  { id: '1-2', source: '1', target: '2', type: 'step', animated: true },
+];
 
 function FlowBuilder() {
-  const [elements, setElements] = useState([]);
-  const [selectedNode, setSelectedNode] = useState(null);
-  const [showSettings, setShowSettings] = useState(false);
 
-  const onConnect = (params) => setElements((els) => addEdge(els, params));
+  const [nodes, setNodes] = useState(initialNodes);
+  const [edges, setEdges] = useState(initialEdges);
+
+  // const [elements, setElements] = useState([]);
+  // const [selectedNode, setSelectedNode] = useState(null);
+  // const [showSettings, setShowSettings] = useState(false);
+
+  const onNodesChange = useCallback(
+    (changes) => setNodes((ns) => applyNodeChanges(changes, ns)),
+    [],
+  );
+  const onEdgesChange = useCallback(
+    (changes) => setEdges((es) => applyEdgeChanges(changes, es)),
+    [],
+  );
+  const onConnect = (params) => setNodes((els) => addEdge(els, params));
 
   const addEdge = (elements, { id, source, target }) => {
   const existingElementIndex = elements.findIndex((el) => el.id === source);
@@ -38,9 +65,9 @@ function FlowBuilder() {
       if (selectedElement) {        
         console.log(selectedElement.id); 
       }
-      setSelectedNode(nodeId);
-      setShowSettings(true);
-    };
+      // setSelectedNode(nodeId);
+      // setShowSettings(true);
+  };
     
   const handleSelectionChange = (e) => {
     if (e.selectedElement && typeof e.selectedElement.id === 'string') {
@@ -51,11 +78,11 @@ function FlowBuilder() {
   }
 
   const handleDeselectNode = () => {
-    setSelectedNode(null);
+    // setSelectedNode(null);
     };    
     
   const onSaveButtonClick = () => {
-    const nodesWithEmptyTargetHandles = elements.filter(
+    const nodesWithEmptyTargetHandles = nodes.filter(
     (element) =>
       Array.isArray(element.targetHandles) &&
       element.targetHandles.length > 0 &&
@@ -72,16 +99,18 @@ function FlowBuilder() {
 
   const addNode = (data) => {
   const newNode = JSON.parse(data);
-  setElements((els) => [...els, {...newNode, id: Date.now(), position: { x: 0, y: 0 } }]);
+  setNodes((els) => [...els, {...newNode, id: Date.now(), position: { x: 0, y: 0 } }]);
 };
 
-  return (
+  return (  
     <div style={{ height: 500 }}>
-      <NodesPanel onAddNode={addNode} />
+      <button style={{ display: 'flex', justifyContent: 'flex-end' }} onClick={onSaveButtonClick}>Save Changes</button>
       <ReactFlow
-        elements={elements}
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
         onConnect={onConnect}
-        nodeTypes={[]}
         onSelectionChange={handleSelectionChange}
         onDragStop={() => handleDeselectNode()}
        >
@@ -89,8 +118,7 @@ function FlowBuilder() {
         <MiniMap />
         <Controls />
       </ReactFlow>
-        <button onClick={onSaveButtonClick}>Save</button>
-    {showSettings && (
+    {/* {showSettings && (
       <SettingsPanel
         selectedNode={selectedNode}
         onUpdate={(newLabel) => {
@@ -102,7 +130,7 @@ function FlowBuilder() {
           setShowSettings(false); 
         }}
       />
-    )} 
+    )}  */}
     </div>
   );
 };

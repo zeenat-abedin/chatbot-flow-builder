@@ -1,5 +1,3 @@
-// SettingsPanel.jsx
-
 import React, { useState, useEffect } from 'react';
 
 function SettingsPanel({ selectedNode, onUpdate }) {
