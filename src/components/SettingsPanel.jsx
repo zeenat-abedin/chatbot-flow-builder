@@ -1,25 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useNodesState } from 'reactflow';
 
-function SettingsPanel({ selectedNode, onUpdate, nodes }) {
+const SettingsPanel = () => {
+  const [nodes, setNodes] = useNodesState([]);
+  const [selectedNode, setSelectedNode] = useState(null);
   const [label, setLabel] = useState('');
 
-  useEffect(() => {
-    if (selectedNode) {
-      setLabel(nodes.find(node => node.id === selectedNode).data.label);
-    }
-  }, [nodes, selectedNode]);
+  const onNodeClick = (event, node) => {
+    setSelectedNode(node);
+    setLabel(node.data.label);
+  };
 
-  const handleChange = (e) => {
-    setLabel(e.target.value);
+  const onLabelChange = (event) => {
+    setLabel(event.target.value);
+  };
+
+  const updateNode = () => {
+    if (selectedNode) {
+      const updatedNode = {
+        ...selectedNode,
+        data: {
+          ...selectedNode.data,
+          label,
+        },
+      };
+      setNodes((nodes) =>
+        nodes.map((node) => (node.id === selectedNode.id ? updatedNode : node))
+      );
+    }
   };
 
   return (
-     <div>
-      <h3>Edit Node</h3>
-      <input type="text" value={label} onChange={handleChange} />
-      <button onClick={() => onUpdate(label)}>Update</button>
+    <div style={{ padding: '10px', background: '#eee' }}>
+      <h3>Settings</h3>
+      <input type="text" value={label} onChange={onLabelChange} />
+      <button onClick={updateNode}>Update</button>
     </div>
   );
-}
+};
 
 export default SettingsPanel;
