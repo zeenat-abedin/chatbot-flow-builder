@@ -64,8 +64,8 @@ function FlowBuilder() {
       if (selectedElement) {        
         console.log(selectedElement.id); 
       }
-      // setSelectedNode(nodeId);
-      // setShowSettings(true);
+      setSelectedNode(nodeId);
+      setShowSettings(true);
   };
     
   const handleSelectionChange = (e) => {
@@ -96,7 +96,11 @@ function FlowBuilder() {
   console.log("Saving the flow...");
   };
 
-  const addNode = (type,position) => {
+  const addNode = (type, position) => {
+  if (!position ||!position.x ||!position.y) {
+    console.error('Invalid position:', position);
+    return;
+  }
    const newNode = {
     id: Date.now().toString(),
     type, 
@@ -116,13 +120,18 @@ function FlowBuilder() {
       <input
         type="text"
         value={data.inputValue}
-        onChange={(e) => {
-          // Update the inputValue in your state management logic here
-        }}
+        onChange={(e) => handleChange(e, id)}
       />
     </div>
   );
-};
+  };
+
+   const handleChange = (e, id) => {
+    const nodeIndex = nodes.findIndex(node => node.id === id);
+    const updatedNodes = [...nodes];
+    updatedNodes[nodeIndex].data.inputValue = e.target.value;
+    setNodes(updatedNodes);
+  };
 
   return (  
     <div style={{ height: 500 }}>
