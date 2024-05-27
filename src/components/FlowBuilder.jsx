@@ -21,10 +21,8 @@ const FlowBuilder = () => {
 
   const onConnect = (params) => setEdges((els) => addEdge(params, els));
 
-  const onNodeClick = (event, node) => {
-    // Handle node click event
-    
-    setSelectedNode(node); // Update selectedNode state
+  const onNodeClick = (event, node) => {   
+    setSelectedNode(node); 
   };
 
   return (
@@ -45,7 +43,7 @@ const FlowBuilder = () => {
             <Controls />
           </ReactFlow>
         </div>
-        <SettingsPanel nodes={nodes} setNodes={setNodes} />
+        <SettingsPanel nodes={nodes} setNodes={setNodes} selectedNode={selectedNode}/>
         <SaveButton nodes={nodes} edges={edges} />
       </div>
     </ReactFlowProvider>

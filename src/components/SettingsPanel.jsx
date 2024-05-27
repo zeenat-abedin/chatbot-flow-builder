@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import { useNodesState } from 'reactflow';
 
-function SettingsPanel() {
-  const [nodes, setNodes] = useNodesState([]);
-  const [selectedNode, setSelectedNode] = useState(null);
-  const [label, setLabel] = useState('');
+function SettingsPanel({selectedNode, nodes, setNodes}) {
+  const [label, setLabel] = useState(selectedNode ? selectedNode.data.label : '');
 
   const onNodeClick = (event, node) => {
-    setSelectedNode(node);
     setLabel(node.data.label);
   };
 
