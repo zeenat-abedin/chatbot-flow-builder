@@ -38,6 +38,7 @@ const FlowBuilder = () => {
             onConnect={onConnect}
             nodeTypes={{ textNode: TextNode }}
             onNodeClick={onNodeClick}
+            fitView
           >
             <Background />
             <Controls />
