@@ -20,9 +20,10 @@ function SettingsPanel({selectedNode, nodes, setNodes}) {
           label,
         },
       };
-      setNodes((nodes) =>
-        nodes.map((node) => (node.id === selectedNode.id ? updatedNode : node))
+      const updatedNodes = nodes.map((node) =>
+        node.id === selectedNode.id ? updatedNode : node
       );
+      setNodes(updatedNodes);
     }
   };
 
