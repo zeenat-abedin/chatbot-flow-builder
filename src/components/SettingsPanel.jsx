@@ -3,10 +3,6 @@ import React, { useState } from 'react';
 function SettingsPanel({selectedNode, nodes, setNodes}) {
   const [label, setLabel] = useState(selectedNode ? selectedNode.data.label : '');
 
-  const onNodeClick = (event, node) => {
-    setLabel(node.data.label);
-  };
-
   const onLabelChange = (event) => {
     setLabel(event.target.value);
   };
