@@ -14,7 +14,7 @@ import NodesPanel from './NodesPanel';
 import SettingsPanel from './SettingsPanel';
 import SaveButton from './SaveButton';
 
-const FlowBuilder = () => {
+function FlowBuilder () {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [selectedNode, setSelectedNode] = useState(null);

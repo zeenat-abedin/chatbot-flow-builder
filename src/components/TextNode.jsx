@@ -1,7 +1,7 @@
 import React from 'react';
 import { Handle, Position } from 'reactflow';
 
-const TextNode = ({ data }) => {
+function TextNode ({ data }) {
   return (
     <>
       <div
