@@ -23,13 +23,14 @@ const FlowBuilder = () => {
 
   const onNodeClick = (event, node) => {
     // Handle node click event
+    
     setSelectedNode(node); // Update selectedNode state
   };
 
   return (
     <ReactFlowProvider>
       <div style={{ display: 'flex', height: '100vh' }}>
-        <NodesPanel setNodes={setNodes} />
+        <NodesPanel setNodes={setNodes} nodes={nodes} />
         <div style={{ flex: 1 }}>
           <ReactFlow
             nodes={nodes}

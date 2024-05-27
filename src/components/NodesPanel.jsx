@@ -1,9 +1,6 @@
 import React from 'react';
-import { useNodesState } from 'reactflow';
 
-const NodesPanel = () => {
-  const [nodes, setNodes] = useNodesState([]);
-
+function NodesPanel({nodes, setNodes}){
   const addTextNode = () => {
     const newNode = {
       id: `node-${nodes.length + 1}`,
@@ -11,6 +8,7 @@ const NodesPanel = () => {
       position: { x: 0, y: 0 },
       data: { label: 'New Text Node' },
     };
+    console.log(setNodes())
     setNodes([...nodes, newNode]);
   };
 

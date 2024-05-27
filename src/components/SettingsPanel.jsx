@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNodesState } from 'reactflow';
 
-const SettingsPanel = () => {
+function SettingsPanel() {
   const [nodes, setNodes] = useNodesState([]);
   const [selectedNode, setSelectedNode] = useState(null);
   const [label, setLabel] = useState('');
