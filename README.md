@@ -1,4 +1,7 @@
 
+## Live Demo
+The application is hosted at: [https://chatbot-flow-builder-roan.vercel.app](https://chatbot-flow-builder-roan.vercel.app)
+
 ### Chatbot Flow Builder Application Overview
 
 This application is a chatbot flow builder, allowing users to visually construct chatbot conversations using a drag-and-drop interface. It leverages React and ReactFlow for building the UI and managing the state of nodes and edges representing chatbot responses and transitions between them.
