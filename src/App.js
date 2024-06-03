@@ -1,11 +1,12 @@
 import React from 'react'
+import { ReactFlowProvider } from 'reactflow'
 import FlowBuilder from './components/FlowBuilder'
 
 function App() {
   return (
-    <div>
+    <ReactFlowProvider>
       <FlowBuilder/>
-    </div>
+    </ReactFlowProvider>
   )
 }
 

@@ -10,6 +10,7 @@ function TextNode ({ data }) {
           border: '1px solid #ddd',
           padding: '10px',
           borderRadius: '5px',
+          cursor: 'pointer'
         }}
       >
         {data.label}

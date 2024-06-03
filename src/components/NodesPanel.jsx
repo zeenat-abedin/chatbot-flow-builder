@@ -5,10 +5,9 @@ function NodesPanel({nodes, setNodes}){
     const newNode = {
       id: `node-${nodes.length + 1}`,
       type: 'textNode',
-      position: { x: 0, y: 0 },
+      position: { x: nodes.length * 10, y: nodes.length * 10 },
       data: { label: 'New Text Node' },
     };
-    console.log(setNodes())
     setNodes([...nodes, newNode]);
   };
 

@@ -1,12 +1,11 @@
 import React from 'react';
-import { useNodesState, useEdgesState } from 'reactflow';
 
-const SaveButton = () => {
-  const [nodes] = useNodesState([]);
-  const [edges] = useEdgesState([]);
-
+const SaveButton = ({nodes, edges}) => {
   const saveFlow = () => {
     const isValid = validateFlow(nodes, edges);
+
+    console.log('myLog myIsValid', isValid);
+
     if (isValid) {
       // Save the flow data (nodes and edges)
       console.log('Saving flow:', { nodes, edges });
@@ -16,6 +15,8 @@ const SaveButton = () => {
   };
 
   const validateFlow = (nodes, edges) => {
+    console.log('myLog nodes', nodes);
+    console.log('myLog edges', edges);
     const nodesWithEmptyTargets = nodes.filter(
       (node) => node.type === 'textNode' && !edges.some((edge) => edge.target === node.id)
     );
