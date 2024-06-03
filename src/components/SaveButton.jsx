@@ -1,4 +1,5 @@
 import React from 'react';
+import './globalStyles.css'
 
 const SaveButton = ({nodes, edges}) => {
   const saveFlow = () => {
@@ -26,7 +27,7 @@ const SaveButton = ({nodes, edges}) => {
   return (
     <div style={{ padding: '10px', background: '#eee' }}>
       <h3>Save</h3>
-      <button onClick={saveFlow}>Save</button>
+      <button className='save' onClick={saveFlow}>Save</button>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import './globalStyles.css'
 
 function NodesPanel({nodes, setNodes}){
   const addTextNode = () => {
@@ -14,7 +15,7 @@ function NodesPanel({nodes, setNodes}){
   return (
     <div style={{ padding: '10px', background: '#eee' }}>
       <h3>Nodes</h3>
-      <button onClick={addTextNode}>Add Text Node</button>
+      <button className='add-text-node' onClick={addTextNode}>Add Text Node</button>
     </div>
   );
 };

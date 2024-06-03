@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './globalStyles.css'
 
 function SettingsPanel({selectedNode, nodes, setNodes, setSelectedNode}) {
   const [label, setLabel] = useState(() => selectedNode ? selectedNode.data.label : '');
@@ -38,7 +39,7 @@ function SettingsPanel({selectedNode, nodes, setNodes, setSelectedNode}) {
     <div style={{ padding: '10px', background: '#eee' }}>
       <h3>Settings</h3>
       <input type="text" value={label} onChange={onLabelChange} />
-      <button onClick={updateNode}>Update</button>
+      <button className='update' onClick={updateNode}>Update</button>
     </div>
   );
 };

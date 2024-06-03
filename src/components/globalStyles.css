@@ -1,0 +1,17 @@
+
+body {
+    font-size: 16px; 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+input{
+    font-size: 18px;  
+    padding: 5px 10px; 
+    border-radius: 5px;
+}
+
+.save, .add-text-node, .update {
+    font-size: 18px; 
+    padding: 5px 10px; 
+    border-radius: 5px; 
+}
