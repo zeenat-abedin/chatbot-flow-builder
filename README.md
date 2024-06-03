@@ -1,70 +1,43 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Chatbot Flow Builder Application Overview
 
-## Available Scripts
+This application is a chatbot flow builder, allowing users to visually construct chatbot conversations using a drag-and-drop interface. It leverages React and ReactFlow for building the UI and managing the state of nodes and edges representing chatbot responses and transitions between them.
 
-In the project directory, you can run:
+### Key Components
 
-### `npm start`
+#### `FlowBuilder.jsx`
+- **Purpose**: The main component that renders the entire flow builder UI.
+- **Key Features**:
+  - Initializes and manages the state of nodes and edges using ReactFlow's `useNodesState` and `useEdgesState`.
+  - Renders a `NodesPanel` for adding and configuring nodes, a `ReactFlow` instance for visualizing the chatbot flow, a `SettingsPanel` for adjusting node settings, and a `SaveButton` for saving the constructed flow.
+  - Utilizes `useMemo` for memoizing node types and `useState` for tracking the selected node.
+  - Handles node and edge changes through ReactFlow's event handlers (`onNodesChange`, `onEdgesChange`, `onConnect`).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#### `SaveButton.jsx`
+- **Purpose**: A component that provides a button for saving the current chatbot flow configuration.
+- **Key Features**:
+  - Validates the flow before saving, ensuring no more than one node has an empty target handle.
+  - Logs the flow data if valid or alerts the user if invalid.
+  - Uses a callback function passed down from `FlowBuilder.jsx` to interact with the flow data.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### `NodesPanel.jsx`
+- **Purpose**: It is responsible for rendering the panel where users can add and configure nodes.
+- **Key Features**:
+  - Provides UI controls for selecting node types and configuring node-specific settings.
 
-### `npm test`
+#### `SettingsPanel.jsx`
+- **Purpose**: It is responsible for adjusting node settings.
+- **Key Features**:
+  - Allows users to modify properties of selected nodes, such as text content, conditions, etc.
+  - Updates the corresponding node in the flow when settings are changed.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### `TextNode.jsx`
+- **Purpose**: Represents a text-based node in the chatbot flow, likely used for displaying text messages or prompts to the user.
+- **Key Features**:
+  - Configurable text content
+  - Rendered as part of the flow within the `ReactFlow` component.
 
-### `npm run build`
+### Styling and Accessibility
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- The application includes global styling to enhance readability and usability, such as increased font sizes and button dimensions.
+- Accessibility considerations are implied through the use of keyboard-friendly interactions and screen-reader support.
